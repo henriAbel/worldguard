@@ -842,6 +842,18 @@ public class WorldGuardBlockListener implements Listener {
                 return;
             }
             break;
+
+        case BlockID.FIRE:
+            if (event.getNewState().getTypeId() != BlockID.AIR) {
+                return;
+            }
+
+            if (wcfg.useRegions && !plugin.getGlobalRegionManager().allows(
+                    DefaultFlag.FIRE_EXTINGUISH, event.getBlock().getLocation())) {
+                event.setCancelled(true);
+                return;
+            }
+            break;
         }
 
         if (type == BlockID.SOIL) {
