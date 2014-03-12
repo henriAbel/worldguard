@@ -423,6 +423,10 @@ public final class RegionCommands {
         
         // Can't replace regions with this command
         RegionManager regionManager = plugin.getGlobalRegionManager().get(player.getWorld());
+        LocalPlayer localPlayer = plugin.wrapPlayer(player);
+        if (regionManager.getRegionCountOfPlayer(localPlayer) > 0) {
+        	 throw new CommandException("You own too many regions, delete one first to define a new one.");
+        }
         if (regionManager.hasRegion(id)) {
             throw new CommandException(
                     "That region is already defined. To change the shape, use " +
